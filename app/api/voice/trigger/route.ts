@@ -53,15 +53,29 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           agent_id: bolnaAgentId,
           recipient_phone_number: customer_phone,
+          // Explicitly overriding the Bolna system prompt so the agent ALWAYS uses the context
+          agent_prompts: {
+            task_1: {
+              system_prompt: `You are PayIntent's voice recovery agent calling from ${merchant_name || "Store"}.
+The customer's name is ${customer_name || "Customer"}.
+They dropped off from their purchase of ₹${amount || "0"}.
+Root Cause: ${classification?.root_cause || drop_off_reason || mapped_reason || "unknown"}.
+
+YOUR INSTRUCTION / SCRIPT HINT:
+${classification?.voice_script_hint || "Ask if they faced any issues and offer to help."}
+
+Keep the conversation natural, brief, and helpful. Use a polite tone in Hindi or English depending on what the customer speaks.`
+            }
+          },
           user_data: {
             customer_name: customer_name || "Customer",
             amount: amount || "0",
             merchant_name: merchant_name || "Store",
-            drop_off_reason: drop_off_reason || mapped_reason || "unknown",
+            drop_off_reason: classification?.root_cause || drop_off_reason || mapped_reason || "unknown",
             recommended_action: classification?.recommended_action || "retry_payment",
             voice_script_hint: classification?.voice_script_hint || "",
             available_offers: Array.isArray(available_offers) ? available_offers.join(", ") : (available_offers || "No special offers"),
-            retry_link: retry_link || `${process.env.NEXT_PUBLIC_APP_URL || "https://pay.pinelabs.com"}/retry/${transaction_id}`,
+            retry_link: retry_link || `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/retry/${transaction_id}`,
             language: language || "en-IN",
           },
         }),
