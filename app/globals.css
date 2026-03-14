@@ -2,25 +2,27 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0D2B2B;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter);
+  
+  /* Pine Labs Brand Colors */
+  --color-pine-dark: #0D2B2B;
+  --color-pine-gray: #4A4A4A;
+  --color-pine-lime: #C8F135;
+  --color-pine-lime-hover: #B8E020;
+  --color-pine-border: #E8E8E8;
+  --color-pine-light: #F5F7F5;
+  --color-pine-success: #22C55E;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: -0.02em; /* Ensure all text has the tight letter spacing */
 }
+
