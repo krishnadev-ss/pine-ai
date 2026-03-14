@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PayIntent — Intelligent Checkout Recovery Agent
+
+70% of online payment checkouts are abandoned before completion. PayIntent is a full-funnel, AI-powered checkout recovery system that uses Pine Labs transaction signals and conversational AI to diagnose payment dropoffs and recover them in real time.
 
 ## Getting Started
 
-First, run the development server:
+1. **Install Dependencies**  
+   Run `npm install` (this should be already done).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Start the Development Server**  
+   Run `npm run dev` and navigate to `http://localhost:3000`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features Built
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Demo Hub (`/`)**
+   The main portal to navigate between the agent demo, the merchant dashboard, and the pine labs dashboard.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Conversational Checkout Agent (`/checkout`)**
+   A simulation of the embedded AI chat widget that helps users find EMI deals, apply discounts, and complete payments without dealing with static forms. It also simulates frontend behavioural events (Drop-offs).
 
-## Learn More
+3. **Merchant Dashboard (`/merchant`)**
+   A real-time Recharts dashboard that shows a specific merchant (e.g., Croma) their funnel analytics, drop-offs by stage (like OTP Timeout, EMI Confusion), AI calls made, and full transaction-level recovery logs.
 
-To learn more about Next.js, take a look at the following resources:
+4. **Pine Labs Operations Dashboard (`/pinelabs`)**
+   A global network dashboard showing the health of bank API redirects, recovery rate by regional languages, and the total value protected globally across the Pine Labs network.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. **AI Trigger Webhooks (`/api/webhook/...` & `/api/voice/...`)**
+   Endpoints set up to receive both hard failures (`pinelabs_webhook`) mapping errors like `otp_timeout`, and soft failures (`frontend_behavioural`). These automatically dispatch actions to the voice AI agent node (`/api/voice/trigger`).
