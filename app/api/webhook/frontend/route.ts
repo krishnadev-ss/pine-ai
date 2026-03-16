@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
 
     // Use Gemini to classify the behavioural drop-off
     const classification = await classifyDropoff({
+      drop_off_reason: payload.drop_off_reason,
       failure_code: null, // No hard failure code for frontend events
       last_screen: payload.last_screen || payload.drop_off_reason || "unknown",
       time_spent: payload.time_spent_on_last_screen || payload.time_spent || 30,

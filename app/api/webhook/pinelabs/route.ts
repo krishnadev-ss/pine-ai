@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
 
     // Use Gemini to classify the drop-off
     const classification = await classifyDropoff({
+      drop_off_reason: payload.drop_off_reason,
       failure_code: payload.failure_code || null,
       last_screen: payload.last_screen || "payment_processing",
       time_spent: payload.time_spent || 0,
